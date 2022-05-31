@@ -4,7 +4,6 @@ import { drillBalance } from '~app-toolkit';
 import { isClaimable, isSupplied } from '~position/position.utils';
 import { SingleStakingFarmDataProps } from '~app-toolkit';
 import { sumBy } from 'lodash';
-import BigNumber from 'bignumber.js';
 
 import { presentBalanceFetcherResponse } from '~app-toolkit/helpers/presentation/balance-fetcher-response.present';
 import { BalanceFetcher } from '~balance/balance-fetcher.interface';
@@ -12,7 +11,7 @@ import { Network } from '~types/network.interface';
 import { GoodGhostingGameConfigFetcherHelper } from '../helpers/good-ghosting.game.config-fetcher';
 
 import { GoodGhostingContractFactory } from '../contracts';
-import { ABIVersion } from './constants';
+import { ABIVersion, ZERO_BN, BN } from './constants';
 
 @Injectable()
 export class GoodGhostingBalanceFetcherHelper implements BalanceFetcher {
@@ -52,7 +51,6 @@ export class GoodGhostingBalanceFetcherHelper implements BalanceFetcher {
           groupIds: [groupId],
         });
 
-        const ZERO_BN = new BigNumber(0);
         const incentiveTokenIndex = 2;
 
         const balances = await Promise.all(
@@ -68,8 +66,8 @@ export class GoodGhostingBalanceFetcherHelper implements BalanceFetcher {
               multicall.wrap(contract).totalGameInterest(),
             ]);
 
-            let winnerCount: BigNumber;
-            let incentiveAmount: BigNumber;
+            let winnerCount: BN;
+            let incentiveAmount: BN;
 
             try {
               [winnerCount, incentiveAmount] = await Promise.all([

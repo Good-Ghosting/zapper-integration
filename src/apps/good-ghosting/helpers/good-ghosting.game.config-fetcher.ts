@@ -3,10 +3,8 @@ import axios from 'axios';
 
 @Injectable()
 export class GoodGhostingGameConfigFetcherHelper {
-  static baseURL = 'https://goodghosting-api.com/v1';
-
   private async getGameConfigs() {
-    const url = `${GoodGhostingGameConfigFetcherHelper.baseURL}/games`;
+    const url = `http://localhost:3001/v1/games`;
 
     const response = await axios.get<any>(url);
     const gameConfigs = response.data;
