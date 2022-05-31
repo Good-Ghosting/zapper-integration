@@ -34,6 +34,8 @@ export class GoodGhostingBalanceFetcherHelper implements BalanceFetcher {
     if (abiVersion === ABIVersion.v003) {
       return this.goodGhostingContractFactory.goodghostingAbiV003(contractPosition);
     }
+
+    return this.goodGhostingContractFactory.goodghostingAbiV001(contractPosition);
   }
 
   private async getGameBalances(network: Network, appId: string, groupId: string, address: string) {
